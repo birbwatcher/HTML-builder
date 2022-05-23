@@ -14,13 +14,13 @@ async function getDirInfo() {
               console.log(error);
             }
             if (stats) {
-               sizes.push(Math.ceil(stats.size/1024)+ 'kB')
+               sizes.push(stats.size/1024 + 'kB')
                const actualPromise = fs.promises.stat(path.join(__dirname + '\\secret-folder', onlyFiles[i].name.toString()), (error, stats) => {
                 if (error) {
                   console.log(error);
                 }
                 if (stats) {
-                   sizes.push(Math.ceil(stats.size/1024)+ 'kB')
+                   sizes.push(stats.size + 'kB')
                 }
             }).then(() => console.log(`${fileName} - ${fileExt.slice(1)} - `+ sizes[i]));
             }
