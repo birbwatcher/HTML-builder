@@ -35,6 +35,7 @@ function mkDir() {
 async function getFiles () {
     mkDir();
     let readDir = await fsPromises.readdir(path.join(__dirname, 'files'),{withFileTypes: true});
+    
     readDir.forEach((el, i) => {
         fsPromises.copyFile(path.join(`${__dirname}\\files`, readDir[i].name), path.join(`${__dirname}\\files-copy`, readDir[i].name))
     });

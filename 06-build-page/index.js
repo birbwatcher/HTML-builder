@@ -27,11 +27,15 @@ async function getFiles() {
     function mkDir() {
         //  rmDir();
         //  fsPromises.mkdir(path.join(__dirname, 'project-dist'),{recursive: true}).then(res => getFiles());
-        fsPromises.mkdir(path.join(__dirname, 'project-dist'),{recursive: true}).then(res => getIndex());
-
+        fsPromises.mkdir(path.join(__dirname, 'project-dist'),{recursive: true, force:true}).then(res => getIndex()).then(res => copyFiles());
+        fsPromises.mkdir(path.join(__dirname, 'project-dist/assets'),{recursive: true, force:true});
+        fsPromises.mkdir(path.join(__dirname, 'project-dist/assets/img'),{recursive: true, force:true})
+        fsPromises.mkdir(path.join(__dirname, 'project-dist/assets/svg'),{recursive: true, force:true})
+        fsPromises.mkdir(path.join(__dirname, 'project-dist/assets/fonts'),{recursive: true, force:true})
+        
     }
     mkDir();
-    // copyFiles();
+    
 
     function getIndex() {
             let writeStream = fs.createWriteStream(path.join(__dirname, 'project-dist/index.html'));
@@ -106,13 +110,39 @@ function getStyles() {
 }
 
 
-// async function copyFiles() {
-//     // mkDir();
-//     let readDir = await fsPromises.readdir(path.join(__dirname, 'assets'),{withFileTypes: true});
-//     readDir.forEach((el, i) => {
-//         fsPromises.copyFile(path.join(`${__dirname}\\assets`, readDir[i].name), path.join(`${__dirname}\\project-dist`, readDir[i].name))
-//     });
-// }
+async function copyFiles() {
+    // mkDir();
+    let readDir = await fsPromises.readdir(path.join(__dirname, 'assets\\fonts'),{withFileTypes: true});
+    readDir.forEach((el, i) => {
+        if (el.isFile) {
+            fsPromises.copyFile(path.join(`${__dirname}\\assets\\fonts`, readDir[i].name), path.join(`${__dirname}\\project-dist\\assets\\fonts`, readDir[i].name))
+        }
+        if (el.isDirectory){
+            console.log('dir')
+        }
+    });
+
+    let readImg = await fsPromises.readdir(path.join(__dirname, 'assets\\img'),{withFileTypes: true});
+    readImg.forEach((el, i) => {
+        if (el.isFile) {
+            fsPromises.copyFile(path.join(`${__dirname}\\assets\\img`, readImg[i].name), path.join(`${__dirname}\\project-dist\\assets\\img`, readImg[i].name))
+        }
+        if (el.isDirectory){
+            console.log('dir')
+        }
+    });
+
+    let readSvg = await fsPromises.readdir(path.join(__dirname, 'assets\\svg'),{withFileTypes: true});
+    readSvg.forEach((el, i) => {
+        if (el.isFile) {
+            fsPromises.copyFile(path.join(`${__dirname}\\assets\\svg`, readSvg[i].name), path.join(`${__dirname}\\project-dist\\assets\\svg`, readSvg[i].name))
+        }
+        if (el.isDirectory){
+            console.log('dir')
+        }
+    });
+
+}
 
 
 
