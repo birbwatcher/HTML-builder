@@ -47,8 +47,6 @@ async function getFiles() {
               getStyles();
     }
 
-
-    // console.log(indexTemplate);
 }
 
 getFiles();
@@ -81,14 +79,11 @@ function getStyles() {
             let readStream = fs.createReadStream(path.join(__dirname, '\\styles\\' + item.name), 'utf-8');
             let data = '';
             readStream.on('data', function(chunk) {
-                console.log(chunk);
                 data += chunk;
-                console.log(data, 'data')
             });
             readStream.on('end',function() {
                 bundle.push(data);
 
-                console.log(bundle, 'end version');
 
                 if (onlyStyles.length === i + 1) {
                     
@@ -118,7 +113,6 @@ async function copyFiles() {
             fsPromises.copyFile(path.join(`${__dirname}\\assets\\fonts`, readDir[i].name), path.join(`${__dirname}\\project-dist\\assets\\fonts`, readDir[i].name))
         }
         if (el.isDirectory){
-            console.log('dir')
         }
     });
 
@@ -128,7 +122,6 @@ async function copyFiles() {
             fsPromises.copyFile(path.join(`${__dirname}\\assets\\img`, readImg[i].name), path.join(`${__dirname}\\project-dist\\assets\\img`, readImg[i].name))
         }
         if (el.isDirectory){
-            console.log('dir')
         }
     });
 
@@ -138,7 +131,6 @@ async function copyFiles() {
             fsPromises.copyFile(path.join(`${__dirname}\\assets\\svg`, readSvg[i].name), path.join(`${__dirname}\\project-dist\\assets\\svg`, readSvg[i].name))
         }
         if (el.isDirectory){
-            console.log('dir')
         }
     });
 
