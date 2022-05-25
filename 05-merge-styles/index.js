@@ -15,14 +15,14 @@ function getStyles() {
             let readStream = fs.createReadStream(path.join(__dirname, '\\styles\\style-'+[i+1]+'.css'), 'utf-8');
             let data = '';
             readStream.on('data', function(chunk) {
-                // console.log(chunk);
+                console.log(chunk);
                 data += chunk;
-                // console.log(data, 'data')
+                console.log(data, 'data')
             });
             readStream.on('end',function() {
                 bundle.push(data);
 
-                // console.log(bundle, 'end version');
+                console.log(bundle, 'end version');
 
                 if (onlyStyles.length === i + 1) {
                     
