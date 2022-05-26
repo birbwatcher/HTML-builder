@@ -11,18 +11,14 @@ function getStyles() {
             return path.extname(response[i].name.toString()) === '.css';
         })
         onlyStyles.forEach(function(item, i, array) {
-            console.log(item);
             let readStream = fs.createReadStream(path.join(__dirname, '\\styles\\style-'+[i+1]+'.css'), 'utf-8');
             let data = '';
             readStream.on('data', function(chunk) {
-                console.log(chunk);
                 data += chunk;
-                console.log(data, 'data')
             });
             readStream.on('end',function() {
                 bundle.push(data);
 
-                console.log(bundle, 'end version');
 
                 if (onlyStyles.length === i + 1) {
                     
@@ -36,6 +32,7 @@ function getStyles() {
                       bundle.forEach(function(item, index){
                         writeStream.write(item);
                       })
+                      rl.close();
                     }
              });
 

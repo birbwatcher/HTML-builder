@@ -97,7 +97,9 @@ function getStyles() {
                       bundle.forEach(function(item, index){
                         writeStream.write(item);
                       })
+                      rl.close();
                     }
+                    
              });
 
         });
